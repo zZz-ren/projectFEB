@@ -1,12 +1,12 @@
-
-import './App.css';
+import LandingPage from "./Components/LandingPage";
 
 function App() {
-  return (
-    <div className="App">
-      Hello Project
-    </div>
-  );
+  return <div className="w-screen h-[calc(100vh)] ">
+    <LandingPage />
+  </div>;
+
 }
+
+
 
 export default App;
