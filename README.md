@@ -8,3 +8,4 @@ for merging branches **git merge *branch name* .**
 
 color hex's
 main-color : #de5a4e
+color : #444444
