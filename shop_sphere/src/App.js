@@ -1,12 +1,12 @@
 import LandingPage from "./Components/LandingPage";
 
 function App() {
-  return <div className="w-screen h-[calc(100vh)] ">
+
+
+  return <div className="container ">
     <LandingPage />
   </div>;
 
 }
-
-
 
 export default App;
