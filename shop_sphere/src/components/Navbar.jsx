@@ -1,30 +1,40 @@
 import React from "react";
+import Logo from "../assets/images/logo-.jpg";
 
 const Navbar = () => {
   return (
     <>
-      <div
-        className="fixed top-0 right-0 w-full
-      bg-white text-black shadow-md"
-      >
-        <div className=" bg-gradient-to-r from-primary to-secondary text-white">
-          <div className="container py-[2px] sm:block hidden">
-            <div className="flex justify-between">
-              <p>20% Off on next booking</p>
-              <p>Mobile no. +91 1234567890</p>
-            </div>
+      <header className="bg-white">
+        <nav className="flex justify-between items-center w-[92%] mx-auto bg-red-500">
+          <div>
+            <img className="w-16" src={Logo} alt="..." />
           </div>
-        </div>
-        <div className="container py-3 sm:py-0">
-          <div className="flex justify-between items-center">
-            <div>
-              <Link to="/">
-                <img src="" alt="" />
-              </Link>
-            </div>
+          <div className="absolute bg-white min-h-[60vh] left-0 top-[9%] w-full flex items-center px-5">
+            <ul className="flex md:flex-row flex-col md:items-center md:gap-[4vw] gap-8">
+              <li>
+                <button className="hover:text-gray-500">Home</button>
+              </li>
+              <li>
+                <button className="hover:text-gray-500">Product</button>
+              </li>
+              <li>
+                <button className="hover:text-gray-500">Profile</button>
+              </li>
+              <li>
+                <button className="hover:text-gray-500">Wishlist</button>
+              </li>
+              <li>
+                <button className="hover:text-gray-500">Bag</button>
+              </li>
+            </ul>
           </div>
-        </div>
-      </div>
+          <div>
+            <button className="bg-[#233142] text-white py-2 px-5 rounded-full hover:bg-[#492d44] ">
+              Sign-Up
+            </button>
+          </div>
+        </nav>
+      </header>
     </>
   );
 };
