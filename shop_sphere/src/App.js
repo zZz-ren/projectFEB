@@ -1,10 +1,10 @@
-import LandingPage from "./Components/LandingPage";
+import Products from "./Pages/Products";
 
 function App() {
 
 
-  return <div className="container ">
-    <LandingPage />
+  return <div className=" ">
+    <Products />
   </div>;
 
 }

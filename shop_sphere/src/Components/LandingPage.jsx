@@ -9,7 +9,6 @@ export default function LandingPage() {
   )
 }
 
-
 //hero
 function Hero() {
   return <div className='relative flex w-screen text-center justify-center items-center h-screen overflow-hidden'>
