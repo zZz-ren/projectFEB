@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const link = 'https://picsum.photos/500/300'
 
 export default function ProductDetails() {
@@ -13,7 +15,7 @@ export default function ProductDetails() {
                     </div>
                 </div>
                 <div className="m-2 space-y-2 ">
-                    <h2 className="text-xs md:text-sm font-thin underline decoration-[0.2px]">Product brand </h2>
+                    <Link to={`/products`}><h2 className="text-xs hover:text-[#f75748] md:text-sm font-thin underline decoration-[0.2px]">Product brand </h2></Link>
                     <h2 className="text-3xl md:text-4xl">Product Name </h2>
                     <h2 className="text-sm md:text-base font-light ">Product descriptipm Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat recusandae hic maiores numquam optio placeat nesciunt rerum. Necessitatibus molestias tempore laboriosam sit? Repellat natus reprehenderit amet officiis voluptates earum officia. </h2>
 

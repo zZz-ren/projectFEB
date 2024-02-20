@@ -1,5 +1,6 @@
 import CardContainer from "./Components/Card";
 import LandingPage from "./Components/LandingPage";
+import Error from "./Pages/Error";
 import Layout from "./Pages/Layout";
 import ProductDetails from "./Pages/ProductDetails";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
@@ -9,7 +10,8 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <LandingPage />
+      element: <LandingPage />,
+      errorElement: <Error />
     },
     {
       element: <Layout />,
