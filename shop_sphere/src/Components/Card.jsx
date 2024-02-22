@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 // const link = 'https://picsum.photos/500/300'
 
 export default function CardContainer() {
 
     const [products, setProducts] = useState()
-
+    const [searchParam, setsearchParams] = useSearchParams()
     useEffect(() => {
         const getProducts = async () => {
-            const data = await fetch(`http://localhost:3003/product/?`).then(response => response.json()).catch(error => console.error(error))
+            const data = await fetch(`http://localhost:3003/product/?category=${searchParam.get('category')}`).then(response => response.json()).catch(error => console.error(error))
             setProducts(data.products)
         }
         getProducts()
@@ -30,10 +30,9 @@ export function Card({ product }) {
 
     const { brand, category, _id, description, imageUrl, name, price } = product
 
-    const openCard = () => { }
     return (
         <Link to={`/products/${_id}`}>
-            <motion.div whileTap={{ scale: 0.95 }} onClick={openCard} className="rounded-xl overflow-hidden m-2 shadow-lg">
+            <motion.div whileTap={{ scale: 0.95 }} className="rounded-xl overflow-hidden m-2 shadow-lg">
                 <div className="p-5 flex flex-col ">
                     <div className="rounded=xl">
                         <img src='../assets/images/iphone.jpg' alt="img" />

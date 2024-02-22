@@ -1,4 +1,5 @@
 import CardContainer from "./Components/Card";
+import Categories from "./Components/Categories";
 import LandingPage from "./Components/LandingPage";
 import Error from "./Pages/Error";
 import Layout from "./Pages/Layout";
@@ -27,6 +28,10 @@ function App() {
         {
           path: '/products/:id',
           element: <ProductDetails />
+        },
+        {
+          path: '/categories',
+          element: <Categories />
         }
       ]
     }

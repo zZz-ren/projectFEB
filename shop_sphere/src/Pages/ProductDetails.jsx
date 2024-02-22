@@ -39,7 +39,7 @@ export default function ProductDetails() {
                         <div className=" justify-between m-3">
                             {variants?.map((varnt) => {
                                 return (
-                                    <Variants variant={varnt} />
+                                    <Variants key={varnt._id} variant={varnt} />
                                 );
                             })}
                         </div>
@@ -67,8 +67,8 @@ function Variants({ variant }) {
             <input type="radio" value={name} className="me-2" />
             <div>
                 <h2 className="font-medium"> {name} <span className="md:ms-7 text-[#f75748]">Price : ₹{price}</span></h2>
-                {features.map(feature => {
-                    return (<div className="text-sm">
+                {features.map((feature, i) => {
+                    return (<div key={feature.name + i} className="text-sm">
                         {feature.name} : {feature.value}
                     </div>)
                 })}

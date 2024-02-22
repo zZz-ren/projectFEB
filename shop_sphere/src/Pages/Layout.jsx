@@ -40,7 +40,7 @@ function NavigationBar() {
             </div>
             <div className="flex items-center justify-center rounded-full p-2 bg-[#f75748] text-white w-6 h-6 top-12 -right-3 absolute" onClick={() => setIsExpanded(val => !val)}><GiBackForth size={'32px'} /></div>
             <div className="mt-10 flex flex-col t space-y-8 ">
-                <NavLink to={`/products`} className={`flex space-x-3 items-center p-2`}>
+                <NavLink to={`/categories`} className={`flex space-x-3 items-center p-2`}>
                     <TbShoppingBag />
                     <span className={isExpanded ? 'block' : 'hidden'}>Categories</span>
                 </NavLink>
