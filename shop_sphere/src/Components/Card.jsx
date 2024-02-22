@@ -10,7 +10,7 @@ export default function CardContainer() {
 
     useEffect(() => {
         const getProducts = async () => {
-            const data = await fetch('http://localhost:3003/product/').then(response => response.json()).catch(error => console.error(error))
+            const data = await fetch(`http://localhost:3003/product/?`).then(response => response.json()).catch(error => console.error(error))
             setProducts(data.products)
         }
         getProducts()
