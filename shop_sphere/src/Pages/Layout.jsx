@@ -30,9 +30,8 @@ export default function Layout() {
 function NavigationBar() {
     const [isExpanded, setIsExpanded] = useState(false)
 
-    const func = (isActive) => isActive === 'active' ? "bg-[#f75748] rounded text-white font-semibold" : "bg-black"
+    // const func = (isActive) => isActive === 'active' ? "bg-[#f75748] rounded text-white font-semibold" : "bg-black"
 
-    console.log(func)
     return (
         <motion.div animate={isExpanded ? "expanded" : "nonExpanded"} variants={variants} className='py-12 flex flex-col bg-white opacity-95 border items-center border-r-2 md:hidden w-full md:w-2/5 h-screen  fixed'>
             <div className={`flex space-x-2 items-center `}>
@@ -41,7 +40,7 @@ function NavigationBar() {
             </div>
             <div className="flex items-center justify-center rounded-full p-2 bg-[#f75748] text-white w-6 h-6 top-12 -right-3 absolute" onClick={() => setIsExpanded(val => !val)}><GiBackForth size={'32px'} /></div>
             <div className="mt-10 flex flex-col t space-y-8 ">
-                <NavLink to={`/products`} className={`flex space-x-3 items-center p-2 ${func}`}>
+                <NavLink to={`/products`} className={`flex space-x-3 items-center p-2`}>
                     <TbShoppingBag />
                     <span className={isExpanded ? 'block' : 'hidden'}>Categories</span>
                 </NavLink>

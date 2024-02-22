@@ -1,8 +1,22 @@
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
 
 const link = 'https://picsum.photos/500/300'
 
 export default function ProductDetails() {
+
+    const { id } = useParams()
+    const [productData, setproductData] = useState({});
+    useEffect(() => {
+        const getPrdouct = async () => {
+            const data = await fetch(`http://localhost:3003/product/${id}`).then(res => res.json()).catch(err => console.error(err))
+            setproductData(data.product)
+        }
+        getPrdouct()
+        console.log(productData);
+    }, [id])
+
+
     return (
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2  mx-auto">
@@ -15,9 +29,9 @@ export default function ProductDetails() {
                     </div>
                 </div>
                 <div className="m-2 space-y-2 ">
-                    <Link to={`/products`}><h2 className="text-xs hover:text-[#f75748] md:text-sm font-thin underline decoration-[0.2px]">Product brand </h2></Link>
-                    <h2 className="text-3xl md:text-4xl">Product Name </h2>
-                    <h2 className="text-sm md:text-base font-light ">Product descriptipm Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat recusandae hic maiores numquam optio placeat nesciunt rerum. Necessitatibus molestias tempore laboriosam sit? Repellat natus reprehenderit amet officiis voluptates earum officia. </h2>
+                    <Link to={`/products`}><h2 className="text-xs hover:text-[#f75748] md:text-sm font-thin underline decoration-[0.2px]">{productData?.brand} </h2></Link>
+                    <h2 className="text-3xl md:text-4xl">{productData?.name} </h2>
+                    <h2 className="text-sm md:text-base font-light ">{productData?.description} </h2>
 
                     <div className="rounded-xl w-full md:w-1/2 flex flex-col p-5 shadow-lg">
                         Select Color:

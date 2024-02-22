@@ -13,4 +13,5 @@ router.post('/', productControllers.createProduct)
 
 router.post('/:id', productControllers.updateProduct)
 
+router.post('/adminInsert/', productControllers.addMany)
 module.exports = router
