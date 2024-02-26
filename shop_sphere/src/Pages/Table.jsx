@@ -143,20 +143,20 @@ const UploadForm = ({ id, setId, setClose }) => {
     )
 }
 
-function Test() {
+// function Test() {
 
-    const [file, setfile] = useState()
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formdata = new FormData()
-        formdata.append('image', file)
-        await fetch('http://localhost:3003/admin/newProduct', { method: 'POST', body: file })
-    }
+//     const [file, setfile] = useState()
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         const formdata = new FormData()
+//         formdata.append('image', file)
+//         await fetch('http://localhost:3003/admin/newProduct', { method: 'POST', body: file })
+//     }
 
-    return <div>
-        <form >
-            <input type="file" onChange={(e) => { console.log(e.target.files[0]); setfile(e.target.files[0]) }}></input>
-            <button onClick={(e) => handleSubmit(e)}>Upload</button>
-        </form>
-    </div>
-}
+//     return <div>
+//         <form >
+//             <input type="file" onChange={(e) => { console.log(e.target.files[0]); setfile(e.target.files[0]) }}></input>
+//             <button onClick={(e) => handleSubmit(e)}>Upload</button>
+//         </form>
+//     </div>
+// }
