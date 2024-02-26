@@ -5,6 +5,7 @@ import Error from "./Pages/Error";
 import Layout from "./Pages/Layout";
 import ProductDetails from "./Pages/ProductDetails";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Table, Test } from "./Pages/Table";
 
 function App() {
 
@@ -32,6 +33,15 @@ function App() {
         {
           path: '/categories',
           element: <Categories />
+        }
+      ]
+    },
+    {
+      path: '/admin',
+      children: [
+        {
+          path: 'upload',
+          element: <Table />
         }
       ]
     }

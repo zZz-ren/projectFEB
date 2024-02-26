@@ -2,6 +2,7 @@ const express = require('express')
 const productRoutes = require('./Routes/productRoutes')
 const adminRoutes = require('./Routes/adminRoutes')
 const mongoose = require('mongoose')
+
 require('dotenv').config()
 
 const app = express()
