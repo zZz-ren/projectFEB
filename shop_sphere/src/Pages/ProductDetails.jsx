@@ -1,34 +1,58 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const link = "https://picsum.photos/500/300";
+const link = "https://localhost:3003/";
 
 export default function ProductDetails() {
   const { id } = useParams();
+  const [msg, setMsg] = useState("loading...");
   const [productData, setproductData] = useState({});
   useEffect(() => {
-    const getPrdouct = async () => {
-      const data = await fetch(`http://localhost:3003/product/${id}`)
+    const getPrdouct = () => {
+      const data = fetch(`http://localhost:3003/product/${id}`)
         .then((res) => res.json())
-        .catch((err) => console.error(err));
-      setproductData(data.product);
-      console.log(data.product);
+        .then((data) => setproductData(data.product))
+        .then(setMsg())
+        .catch((err) => {
+          setMsg("Error getting Data");
+          console.log(err.message);
+        });
     };
     getPrdouct();
   }, [id]);
-
-  const { brand, category, name, price, variants, description, _id } =
+  const { brand, category, name, imageUrl, price, variants, description, _id } =
     productData;
+  console.log(imageUrl);
 
-  return (
+  return msg ? (
+    <div className="h-[80vh] flex justify-center items-center text-3xl text-red-500 ">
+      {msg}↗️↗️
+    </div>
+  ) : (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2  mx-auto">
         <div className="m-2">
-          <img src={link} alt="img" className="w-full rounded-lg" />
+          <img
+            src={`http://localhost:3003/${imageUrl}`}
+            alt="img"
+            className="w-full rounded-lg"
+          />
           <div className=" grid grid-cols-3  mt-1 rounded-lg ">
-            <img src={link} className="p-[0.8px] rounded-lg" alt="img" />
-            <img src={link} className="p-[0.8px] rounded-lg" alt="img" />
-            <img src={link} className="p-[0.8px] rounded-lg" alt="img" />
+            <img
+              src={`http://localhost:3003/${imageUrl}`}
+              className="p-[0.8px] rounded-lg"
+              alt="img"
+            />
+            <img
+              src={`http://localhost:3003/${imageUrl}`}
+              className="p-[0.8px] rounded-lg"
+              alt="img"
+            />
+            <img
+              src={`http://localhost:3003/${imageUrl}`}
+              className="p-[0.8px] rounded-lg"
+              alt="img"
+            />
           </div>
         </div>
         <div className="m-2 space-y-2 ">
@@ -58,7 +82,7 @@ export default function ProductDetails() {
         </div>
       </div>
       <div className=" flex mt-2 md:justify-end justify-center mx-auto w-full">
-        <button class="bg-gray-900 w-40 hover:bg-white rounded-full hover:text-black text-white py-2 px-4 ">
+        <button class="bg-gray-900 w-40 hover:bg-slate-800 shadow-lg hover:text-white text-white py-2 px-4 ">
           Button
         </button>
       </div>
