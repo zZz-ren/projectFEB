@@ -33,23 +33,31 @@ export default function ProductDetails() {
       <div className="grid grid-cols-1 md:grid-cols-2  mx-auto">
         <div className="m-2">
           <img
-            src={`http://localhost:3003/${imageUrl}`}
+            src={`http://localhost:3003/${
+              imageUrl ? imageUrl : "uploads/notFound.png"
+            }`}
             alt="img"
-            className="w-full rounded-lg"
+            className="h-4/5 rounded-lg"
           />
           <div className=" grid grid-cols-3  mt-1 rounded-lg ">
             <img
-              src={`http://localhost:3003/${imageUrl}`}
+              src={`http://localhost:3003/${
+                imageUrl ? imageUrl : "uploads/notFound.png"
+              }`}
               className="p-[0.8px] rounded-lg"
               alt="img"
             />
             <img
-              src={`http://localhost:3003/${imageUrl}`}
+              src={`http://localhost:3003/${
+                imageUrl ? imageUrl : "uploads/notFound.png"
+              }`}
               className="p-[0.8px] rounded-lg"
               alt="img"
             />
             <img
-              src={`http://localhost:3003/${imageUrl}`}
+              src={`http://localhost:3003/${
+                imageUrl ? imageUrl : "uploads/notFound.png"
+              }`}
               className="p-[0.8px] rounded-lg"
               alt="img"
             />
