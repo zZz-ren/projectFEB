@@ -58,7 +58,7 @@ export function Table() {
               >
                 <div className="flex space-x-4">
                   <img
-                    src={`http://localhost:3003/${product.imageUrl}`}
+                    src={`http://localhost:3003/${product.imageUrl[0]}`}
                     className="max-w-40"
                     alt=""
                     srcset=""
@@ -136,17 +136,21 @@ const UploadForm = ({ id, setId, setClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(data);
+    const formData = new FormData();
+    formData.set("name", data.name);
+    formData.append("description", data.description);
+    formData.append("brand", data.brand);
+    formData.append("price", data.price);
+    formData.append("category", data.category);
+    formData.append("imageUrl", data.imageUrl);
+    for (let i = 0; i < data.image.length; i++) {
+      formData.append("image", data.image[i]);
+    }
+    formData.append("image", data.image);
+    console.log(formData, data.image);
     if (!id) {
-      console.log(data);
-      const formData = new FormData();
-      formData.set("name", data.name);
-      formData.append("description", data.description);
-      formData.append("brand", data.brand);
-      formData.append("price", data.price);
-      formData.append("category", data.category);
-      formData.append("imageUrl", data.imageUrl);
-      formData.append("image", data.image);
-      console.log(formData, data);
       await fetch("http://localhost:3003/admin/newProduct/", {
         method: "POST",
         body: formData,
@@ -159,7 +163,7 @@ const UploadForm = ({ id, setId, setClose }) => {
     } else {
       await fetch(`http://localhost:3003/admin/update/${id}`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: formData,
       })
         .then((res) => {
           res.json();
@@ -260,14 +264,15 @@ const UploadForm = ({ id, setId, setClose }) => {
             Image
           </label>
           <input
+            multiple
             onChange={(e) => {
               console.log(e.target.files);
               setData(
                 (d) =>
                   (d = {
                     ...d,
-                    image: e.target.files[0],
-                    imageUrl: URL.createObjectURL(e.target.files[0]),
+                    image: e.target.files,
+                    // imageUrl: URL.createObjectURL(e.target.files[0]),
                   })
               );
             }}

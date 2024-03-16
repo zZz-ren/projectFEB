@@ -23,19 +23,30 @@ exports.addManyProduct = async (req, res) => {
 };
 
 exports.updateProduct = async (req, res) => {
-  console.log(req.file);
+  console.log(req.files);
   try {
     const id = req.params.id;
-
+    const { name, description, brand, price, category } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) {
       throw new CustomError("Invalid id", 400);
     }
-    const product = await Product.findOneAndUpdate({ _id: id }, req.body, {
-      new: true,
-    });
+    const product = await Product.findOneAndUpdate(
+      { _id: id },
+      {
+        name,
+        description,
+        brand,
+        price,
+        category,
+        imageUrl: req.files.map((itm) => itm.path),
+      },
+      {
+        new: true,
+      }
+    );
     res.json({ product: product, message: "Product updated successfully" });
   } catch (error) {
-    res.status(error.statuscode).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -68,3 +79,56 @@ exports.deleteProduct = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+const dummydata = [
+  {
+    fieldname: "image",
+    originalname: "grild sandwich.png",
+    encoding: "7bit",
+    mimetype: "image/png",
+    destination: "./uploads",
+    filename: "1710563336328_grild sandwich.png",
+    path: "uploads\\1710563336328_grild sandwich.png",
+    size: 178219,
+  },
+  {
+    fieldname: "image",
+    originalname: "Vanilla.png",
+    encoding: "7bit",
+    mimetype: "image/png",
+    destination: "./uploads",
+    filename: "1710563336333_Vanilla.png",
+    path: "uploads\\1710563336333_Vanilla.png",
+    size: 95223,
+  },
+  {
+    fieldname: "image",
+    originalname: "Mountain Dew Soft Drink 155ml.png",
+    encoding: "7bit",
+    mimetype: "image/png",
+    destination: "./uploads",
+    filename: "1710563336339_Mountain Dew Soft Drink 155ml.png",
+    path: "uploads\\1710563336339_Mountain Dew Soft Drink 155ml.png",
+    size: 92547,
+  },
+  {
+    fieldname: "image",
+    originalname: "Mini McRoyale.png",
+    encoding: "7bit",
+    mimetype: "image/png",
+    destination: "./uploads",
+    filename: "1710563336340_Mini McRoyale.png",
+    path: "uploads\\1710563336340_Mini McRoyale.png",
+    size: 64067,
+  },
+  {
+    fieldname: "image",
+    originalname: "masala fries.png",
+    encoding: "7bit",
+    mimetype: "image/png",
+    destination: "./uploads",
+    filename: "1710563336342_masala fries.png",
+    path: "uploads\\1710563336342_masala fries.png",
+    size: 214068,
+  },
+];

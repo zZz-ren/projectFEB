@@ -11,17 +11,21 @@ const upload = require("../upload");
 
 router.post(
   "/newProduct",
-  upload.single("image"),
+  upload.array("image", 5),
   admincontrollers.createProduct
 );
 
 router.post(
   "/update/:id",
-  upload.single("image"),
+  upload.array("image", 5),
   admincontrollers.updateProduct
 );
 
-router.delete("/update/:id", admincontrollers.deleteProduct);
+router.delete(
+  "/update/:id",
+  upload.array("image", 5),
+  admincontrollers.deleteProduct
+);
 
 router.post("/adminInsert/", admincontrollers.addManyProduct);
 

@@ -7,12 +7,16 @@ export default function ProductDetails() {
   const { id } = useParams();
   const [msg, setMsg] = useState("loading...");
   const [productData, setproductData] = useState({});
+  const { brand, category, name, imageUrl, price, variants, description, _id } =
+    productData;
+  const [bigImg, setBigImg] = useState();
   useEffect(() => {
     const getPrdouct = () => {
       const data = fetch(`http://localhost:3003/product/${id}`)
         .then((res) => res.json())
         .then((data) => setproductData(data.product))
         .then(setMsg())
+        // .then(setBigImg(productData.imageUrl[0]))
         .catch((err) => {
           setMsg("Error getting Data");
           console.log(err.message);
@@ -20,9 +24,15 @@ export default function ProductDetails() {
     };
     getPrdouct();
   }, [id]);
-  const { brand, category, name, imageUrl, price, variants, description, _id } =
-    productData;
-  console.log(imageUrl);
+
+  useEffect(() => {
+    productData.imageUrl && setBigImg(productData.imageUrl[0]);
+  }, [productData]);
+
+  const handleImage = (id) => {
+    console.log(id);
+    setBigImg((img) => (img = imageUrl[id]));
+  };
 
   return msg ? (
     <div className="h-[80vh] flex justify-center items-center text-3xl text-red-500 ">
@@ -30,37 +40,29 @@ export default function ProductDetails() {
     </div>
   ) : (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2  mx-auto">
-        <div className="m-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 h-auto">
+        <div className="m-2 flex mt-10 flex-col  items-center">
           <img
             src={`http://localhost:3003/${
-              imageUrl ? imageUrl : "uploads/notFound.png"
+              bigImg ? bigImg : "uploads/notFound.png"
             }`}
             alt="img"
-            className="h-4/5 rounded-lg"
+            className="md:h-[350px] h-36 bg-slate-600 rounded-lg"
           />
-          <div className=" grid grid-cols-3  mt-1 rounded-lg ">
-            <img
-              src={`http://localhost:3003/${
-                imageUrl ? imageUrl : "uploads/notFound.png"
-              }`}
-              className="p-[0.8px] rounded-lg"
-              alt="img"
-            />
-            <img
-              src={`http://localhost:3003/${
-                imageUrl ? imageUrl : "uploads/notFound.png"
-              }`}
-              className="p-[0.8px] rounded-lg"
-              alt="img"
-            />
-            <img
-              src={`http://localhost:3003/${
-                imageUrl ? imageUrl : "uploads/notFound.png"
-              }`}
-              className="p-[0.8px] rounded-lg"
-              alt="img"
-            />
+          <div className=" grid grid-cols-5  mt-1 rounded-lg ">
+            {imageUrl?.map((img, i) => (
+              <img
+                key={i}
+                onClick={() => handleImage(i)}
+                src={`http://localhost:3003/${
+                  img ? img : "uploads/notFound.png"
+                }`}
+                className={`p-[0.8px] md:h-24 h-10  rounded-lg ${
+                  bigImg === img ? "border bg-gray-400" : ""
+                }`}
+                alt="img"
+              />
+            ))}
           </div>
         </div>
         <div className="m-2 space-y-2 ">

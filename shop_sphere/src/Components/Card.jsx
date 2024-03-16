@@ -67,11 +67,12 @@ export function Card({ product }) {
         className="rounded-xl overflow-hidden m-2 shadow-lg"
       >
         <div className="p-5 flex flex-col ">
-          <div className="rounded=xl">
+          <div className="rounded=xl mx-auto">
             <img
               src={`http://localhost:3003/${
-                imageUrl ? imageUrl : "uploads\\notFound.png"
+                imageUrl ? imageUrl[0] : "uploads\\notFound.png"
               }`}
+              className="h-64 p-3"
               alt="img"
             />
           </div>
