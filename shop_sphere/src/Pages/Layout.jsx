@@ -25,7 +25,7 @@ export default function Layout() {
       <NavigationBar />
       <NavigationBar2 />
       <main className="grow flex flex-col justify-center mx-auto">
-        <Header />
+        {/* <Header /> */}
         <Dashoard />
       </main>
     </div>
@@ -142,7 +142,7 @@ function NavigationBar2() {
 
 function Dashoard() {
   return (
-    <div className="flex flex-col ps-14 pe-2 w-full">
+    <div className="flex flex-col ps-16 pe-2 w-full">
       <Outlet />
     </div>
   );

@@ -78,33 +78,63 @@ export default function ProductDetails() {
 
           <div className="rounded-xl w-full flex flex-col p-4">
             Select Variant:
-            <div className=" justify-between m-3">
-              {variants?.map((varnt) => {
-                return <Variants key={varnt._id} variant={varnt} />;
-              })}
-            </div>
+            <VariantForm variants={variants} />
           </div>
           {/* <div className="rounded-xl w-auto p-5 shadow-lg">
-                        Select specificatios:
-                        <div></div>
-                        <div></div>
-                    </div> */}
+            Select specificatios:
+            <div></div>
+            <div></div>
+          </div> */}
         </div>
-      </div>
-      <div className=" flex mt-2 md:justify-end justify-center mx-auto w-full">
-        <button class="bg-gray-900 w-40 hover:bg-slate-800 shadow-lg hover:text-white text-white py-2 px-4 ">
-          Button
-        </button>
       </div>
     </div>
   );
 }
 
-function Variants({ variant }) {
-  const { name, price, features } = variant;
+function VariantForm({ variants }) {
+  const [selectedVar, setSelectedVar] = useState();
+
+  const handleAddtoCart = (e) => {
+    e.preventDefault();
+    if (selectedVar) {
+      console.log(selectedVar);
+    } else {
+      alert("Select variant first");
+    }
+  };
+
   return (
-    <div className="shadow-lg m-2 p-1 rounded-xl flex justify-start">
-      <input type="radio" value={name} className="me-2" />
+    <form className=" justify-between m-3">
+      {variants?.map((varnt) => {
+        return (
+          <Variants
+            key={varnt._id}
+            setSelectedVar={setSelectedVar}
+            selectedVar={selectedVar}
+            variant={varnt}
+          />
+        );
+      })}
+      <div className=" flex mt-10 md:justify-end justify-center mx-auto w-full">
+        <button
+          onClick={(e) => handleAddtoCart(e)}
+          class="bg-gray-900 me-3 w-40 hover:bg-slate-800 shadow-lg hover:text-white text-white py-2 px-4 "
+        >
+          Add to Cart
+        </button>
+      </div>
+    </form>
+  );
+}
+
+function Variants({ variant, selectedVar, setSelectedVar }) {
+  const { name, price, features, _id } = variant;
+  return (
+    <div
+      onClick={() => setSelectedVar(_id)}
+      className="shadow-lg m-2 p-1 rounded-xl flex justify-start"
+    >
+      <input type="radio" checked={selectedVar === _id} className="me-2" />
       <div>
         <h2 className="font-medium">
           {" "}

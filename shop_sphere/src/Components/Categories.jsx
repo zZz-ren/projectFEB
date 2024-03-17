@@ -55,7 +55,7 @@ function Loader() {
 
 function ErrorEl({ value }) {
   return (
-    <div className="w-full h-full justify-center items-center flex">
+    <div className="w-1/3 mx-auto rounded-lg mt-10 bg-red-500 text-white h-full justify-center items-center flex">
       {value}
     </div>
   );

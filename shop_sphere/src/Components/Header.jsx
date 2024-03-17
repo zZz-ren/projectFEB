@@ -2,7 +2,7 @@ export default function Header() {
   return (
     <div className="flex ps-20 p-2 md:justify-between justify-between border-2 border-x-0 ">
       <h2 className="text-base md:text-xl font-medium text-[rgb(247,87,72)]">
-        Product Page
+        Shop Sphere
       </h2>
       <input
         type="text"
