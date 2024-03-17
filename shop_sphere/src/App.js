@@ -4,17 +4,18 @@ import LandingPage from "./Components/LandingPage";
 // import Error from "./Pages/Error";
 import Layout from "./Pages/Layout";
 import ProductDetails from "./Pages/ProductDetails";
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Table, } from "./Pages/Table";
-import Categories from './Components/Categories'
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Table } from "./Pages/Table";
+import Categories from "./Components/Categories";
 import Error from "./Pages/Error";
+import Profile from "./Pages/Profile";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <LandingPage />,
-      errorElement: <Error />
+      errorElement: <Error />,
     },
     {
       element: <Layout />,
@@ -32,29 +33,33 @@ function App() {
           element: <ProductDetails />,
         },
         {
-          path: '/categories',
-          element: <Categories />
-        }
-      ]
+          path: "/categories",
+          element: <Categories />,
+        },
+      ],
     },
     {
-      path: '/admin',
+      path: "/profile",
+      element: <Profile />,
+    },
+    {
+      path: "/admin",
       children: [
         {
-          path: 'upload',
-          element: <Table />
-        }
-      ]
-    }
-  ])
+          path: "upload",
+          element: <Table />,
+        },
+      ],
+    },
+  ]);
 
-  return <div className=" ">
-
-    <RouterProvider router={router} />
-    {/* <Products /> */}
-    {/* <LandingPage /> */}
-
-  </div>
+  return (
+    <div className=" ">
+      <RouterProvider router={router} />
+      {/* <Products /> */}
+      {/* <LandingPage /> */}
+    </div>
+  );
 }
 
 export default App;

@@ -3,7 +3,71 @@ import { motion } from "framer-motion";
 
 export default function Profile() {
   const [effect, setEffect] = useState(false);
+  const [error, setError] = useState("");
   const constrains = useRef(null);
+  const intialdata = {
+    name: "",
+    email: "",
+    password: "",
+  };
+  const [data, setData] = useState(intialdata);
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = "http://localhost:3003/newuser";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      // Handle responseData as needed
+      console.log(responseData);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      // Assuming you want to handle server errors here
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.prevent.default();
+    try {
+      const url = "http://localhost:3003/userlogin";
+      await fetch(url, { method: "POST", body: JSON.stringify(data) })
+        .then((res) => {
+          res.json;
+        })
+        .catch((err) => console.log(error));
+      localStorage.setItem("token", res.data);
+      window.location = "/";
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.dataa.message);
+      }
+    }
+  };
 
   return (
     <>
@@ -13,6 +77,7 @@ export default function Profile() {
           style={{ height: "550px", width: "900px" }}
         >
           <form
+            onSubmit={handleLogin}
             className={`${
               effect ? "hidden" : "block"
             } sign-in w-10/12 relative flex flex-col mt-14`}
@@ -85,20 +150,30 @@ export default function Profile() {
                 effect ? "block" : "hidden"
               }  relative float-right `}
             >
-              <form action="" className="absolute top-14 left-24 text-center">
+              <form
+                action=""
+                className="absolute top-14 left-44 text-center"
+                onSubmit={handleSubmit}
+              >
                 <h1 className="text-2xl">Create Account </h1>
                 <br />
                 <label>
                   <span className="uppercase text-sm my-3.5">Name</span>
                   <input
+                    name="name"
+                    value={data.name}
                     type="text"
                     placeholder=""
+                    onChange={handleChange}
                     className="border-b-2 border-b-gray-500 block my-3.5 text-center pb-2 outline-none mx-auto"
                   />
                 </label>
                 <label>
                   <span className="uppercase text-sm my-3.5">Email</span>
                   <input
+                    name="name"
+                    value={data.email}
+                    onChange={handleChange}
                     type="email"
                     placeholder=""
                     className="border-b-2 border-b-gray-500 block my-3.5 text-center pb-2 outline-none mx-auto"
@@ -109,11 +184,15 @@ export default function Profile() {
                   <span className="uppercase text-sm my-3.5">Password</span>
                 </label>
                 <input
+                  name="name"
+                  value={data.password}
+                  onChange={handleChange}
                   type="password"
                   placeholder=""
                   className="border-b-2 border-b-gray-500 block my-3.5 text-center pb-2 outline-none mx-auto"
                 />
                 <div className=" mt-10">
+                  {error && <div className="">{error}</div>}
                   <button
                     type="button"
                     style={{ width: "200px" }}
