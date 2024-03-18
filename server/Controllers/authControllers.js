@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 const { User } = require("../Models/userModel");
+const bcrypt = require("bcrypt");
+const Joi = require("joi");
+const passwordComplexity = require("joi-password-complexity");
 
 exports.User = async (req, res) => {
+  console.log(req.body);
   try {
     const { error } = validate(req.body);
 
@@ -16,8 +20,8 @@ exports.User = async (req, res) => {
     }
 
     const validPassword = await bcrypt.compare(
-      req.body.passowrd,
-      user.passowrd
+      req.body.password,
+      user.password
     );
     if (!validPassword) {
       res.status(401).send({ message: "invalid email or password" });
@@ -26,14 +30,15 @@ exports.User = async (req, res) => {
     const token = user.generateAuthToken();
     res.status(200).send({ data: token, message: "logged in successfully" });
   } catch (error) {
+    console.log(error);
     res.status(500).send({ message: "internal server error" });
   }
 };
 
 const validate = (data) => {
-  const schema = joi.object({
-    email: joi.string().required().label("email"),
-    passowrd: passowrdComplexity.string().required().label("passowrd"),
-  });
+  const schema = Joi.object({
+    email: Joi.string().required().label("email"),
+    passowrd: passwordComplexity(undefined, "password"),
+  }).unknown(true);
   return schema.validate(data);
 };

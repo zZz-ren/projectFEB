@@ -12,13 +12,14 @@ export default function Profile() {
   };
   const [data, setData] = useState(intialdata);
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    console.log("changing");
+    setData((dt) => (dt = { ...dt, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3003/newuser";
+      const url = "http://localhost:3003/profile/newuser";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -48,16 +49,25 @@ export default function Profile() {
   };
 
   const handleLogin = async (e) => {
-    e.prevent.default();
+    e.preventDefault();
     try {
-      const url = "http://localhost:3003/userlogin";
-      await fetch(url, { method: "POST", body: JSON.stringify(data) })
-        .then((res) => {
-          res.json;
-        })
+      const url = "http://localhost:3003/profile/userlogin";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => data)
         .catch((err) => console.log(error));
-      localStorage.setItem("token", res.data);
-      window.location = "/";
+      console.log(response);
+      const token = localStorage.setItem("token", response.data);
+      console.log(token);
+      if (response.data) {
+        return (window.location = "/");
+      }
     } catch (error) {
       if (
         error.response &&
@@ -87,7 +97,9 @@ export default function Profile() {
               <span className="uppercase text-sm my-3.5">Email</span>
               <input
                 type="email"
-                placeholder=""
+                name="email"
+                onChange={handleChange}
+                value={data.email}
                 className="border-b-2 border-b-gray-500 block my-3.5 text-center pb-2 outline-none mx-auto"
               />
             </label>
@@ -97,20 +109,21 @@ export default function Profile() {
             </label>
             <input
               type="password"
-              placeholder=""
+              name="password"
+              onChange={handleChange}
+              value={data.password}
               className="border-b-2 border-b-gray-500 block my-3.5 text-center pb-2 outline-none mx-auto"
             />
             <p>
               <span className="text-sm mt-3.5">Forget Password?</span>
             </p>
             <div className=" mt-10">
-              <button
-                type="button"
+              <input
+                type="submit"
                 style={{ width: "200px" }}
+                value="Sign in"
                 className="text-white bg-gradient-to-r from-rose-400 via-rose-500 to-rose-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-rose-300 dark:focus:ring-rose-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center  "
-              >
-                Sign-In
-              </button>
+              />
             </div>
           </form>
 
@@ -171,7 +184,7 @@ export default function Profile() {
                 <label>
                   <span className="uppercase text-sm my-3.5">Email</span>
                   <input
-                    name="name"
+                    name="email"
                     value={data.email}
                     onChange={handleChange}
                     type="email"
@@ -184,7 +197,7 @@ export default function Profile() {
                   <span className="uppercase text-sm my-3.5">Password</span>
                 </label>
                 <input
-                  name="name"
+                  name="password"
                   value={data.password}
                   onChange={handleChange}
                   type="password"
@@ -194,7 +207,7 @@ export default function Profile() {
                 <div className=" mt-10">
                   {error && <div className="">{error}</div>}
                   <button
-                    type="button"
+                    type="submit"
                     style={{ width: "200px" }}
                     className="text-white bg-gradient-to-r from-rose-400 via-rose-500 to-rose-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-rose-300 dark:focus:ring-rose-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center  "
                   >
